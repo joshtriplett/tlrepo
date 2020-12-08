@@ -1,6 +1,6 @@
 [package]
 name = "tlrepo"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Josh Triplett <josh@joshtriplett.org>"]
 description = "Thread-local git2::Repository, shareable across threads"
 repository = "https://github.com/joshtriplett/tlrepo"

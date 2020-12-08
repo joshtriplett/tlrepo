@@ -29,8 +29,23 @@ impl ThreadLocalRepo {
     }
 
     /// Get the `git2::Repository` for this thread. Returns an error if the open fails.
+    ///
+    /// Note that the cache of thread-local objects never gets pruned. If you're running on a
+    /// long-running thread or a thread pool, call this method. If you're running on a short-lived
+    /// thread, call `get_uncached` instead.
     pub fn get(&self) -> Result<&Repository, git2::Error> {
         self.tl.get_or_try(|| Repository::open(&self.path))
+    }
+
+    /// Get a new `git2::Repository`, and don't save it in the thread-local cache. Returns an error
+    /// if the open fails.
+    ///
+    /// The cache of thread-local objects never gets pruned. If, over the lifetime of your process,
+    /// you run an unbounded number of threads that call `get` and subsequently exit, the
+    /// thread-local cache will grow without bound. In such threads, use `get_uncached` to open a
+    /// repository that won't get cached.
+    pub fn get_uncached(&self) -> Result<Repository, git2::Error> {
+        Repository::open(&self.path)
     }
 }
 
