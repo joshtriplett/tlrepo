@@ -1,6 +1,6 @@
 [package]
 name = "tlrepo"
-version = "0.5.0"
+version = "0.6.0"
 authors = ["Josh Triplett <josh@joshtriplett.org>"]
 description = "Thread-local git2::Repository, shareable across threads"
 repository = "https://github.com/joshtriplett/tlrepo"
@@ -8,5 +8,5 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-git2 = { version = "0.17.1", default-features = false }
+git2 = { version = "0.18.1", default-features = false }
 thread_local = "1.1.7"
